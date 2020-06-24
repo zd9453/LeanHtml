@@ -1,0 +1,40 @@
+div {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid;
+    left: 50%;
+    top: 50%;
+}
+
+.green {
+    margin-left: -105px;
+    margin-top: -105px;
+    border-color: green;
+    z-index: 1;
+}
+
+.red {
+    margin-left: -325px;
+    margin-top: -105px;
+    border-color: red;
+}
+
+.gray {
+    margin-left: 115px;
+    margin-top: -105px;
+    border-color: gray;
+}
+
+.black {
+    margin-left: 5px;
+    margin-top: 0;
+    border-color: black;
+}
+
+.blue {
+    margin-left: -215px;
+    margin-top: 0;
+    border-color: blue;
+}

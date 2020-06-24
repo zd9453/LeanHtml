@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html manifest="offline.manifest">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        #show {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+        }
+
+        #detail_article {
+            width: 100%;
+            height: 100%;
+            color: #333333;
+            font-family: STHeiti;
+        }
+
+        #detail_content {
+            margin: 0 auto;
+            font-size: 16px;
+            line-height: 1.5;
+            width: 100%;
+            text-align: justify;
+        }
+
+        #detail_content img {
+            position: relative;
+            margin: 0 auto;
+            width: 30%;
+            left: 50%;
+            margin-left: 15%;
+            border-radius: 5px 5px 5px 5px;
+        }
+    </style>
+</head>
+<body onload="window.android.loadArticleOnAndroid()">
+<div id="show" text-align="right"></div>
+
+<script>
+    $(window).scroll(function () {
+        // 滚动时隐藏toolbar
+        window.android.showOrHiddenToolbar(false);
+    })
+    $("body").on("click", "#detail_author", function () {
+        window.android.gotoDetail();
+    });
+    $("body").on("click", "#show", function () {
+        window.android.showOrHiddenToolbar();
+    });
+
+    function loadData(data, flag, fontSizePx, size) {
+        $("#show").empty();
+        $("#show").append('<div id="detail_content">' + data.content + '</div>');
+
+        $("#show").css({
+            'min-height': '400px'
+        });
+        $("#detail_content img").each(function () {
+            var src = $(this).attr("src");
+            if (src.indexOf(":") != -1) {
+                $(this).attr("src", src);
+            } else {
+                $(this).attr("src", src);
+            }
+        })
+        changeFontSizeNew(fontSizePx)
+        getImages();
+        // 滚动到顶部
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+
+    function changeFontSizeNew(fontSizePx) {
+        $("#detail_content").css({
+            'font-size': fontSizePx,
+            '-webkit-transition-duration': '0.5s'
+        });
+    }
+
+    function changeFontSize(fontSize) {
+        if (fontSize == 1) {  //小
+            $("#detail_content").css({
+                'font-size': '30px',
+                '-webkit-transition-duration': '0.5s'
+            });
+        } else if (fontSize == 2) {  //中
+            $("#detail_content").css({
+                'font-size': '38px',
+                '-webkit-transition-duration': '0.5s'
+            });
+        } else if (fontSize == 3) {  //大
+            $("#detail_content").css({
+                'font-size': '46px',
+                '-webkit-transition-duration': '0.5s'
+            });
+        } else if (fontSize == 4) {  //特大
+            $("#detail_content").css({
+                'font-size': '54px',
+                '-webkit-transition-duration': '0.5s'
+            });
+        } else {
+            $("#detail_content").css({
+                'font-size': '38px',
+                '-webkit-transition-duration': '0.5s'
+            });
+        }
+    }
+
+    function getImages() {
+        var objs = document.getElementsByTagName("img");
+        var myArray = new Array(objs.length);
+
+        for (var i = 0; i < objs.length; i++) {
+            myArray[i] = objs[i].src;
+        }
+
+        for (var i = 0; i < objs.length; i++) {
+            objs[i].onclick = function () {
+                window.android.openImage(this.src, myArray);
+            }
+        }
+    }
+
+    function changATag() {
+        var tags = document.getElementsByName('a');
+
+        for (var i = 0; i < tags.length; i++) {
+            tags.get(i).style(display)
+
+        }
+    }
+</script>
+</body>
+</html>

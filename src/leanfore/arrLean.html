@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+        .demo {
+            background: #ff4400;
+
+            position: fixed;
+            left: 50%;
+            top: 50%;
+
+            animation: run 6s linear 0s 1 alternate forwards;
+        }
+
+        .demo1 {
+            background: #ff4400;
+            position: fixed;
+            left: 20%;
+            top: 50%;
+            font-size: 60px;
+            font-family: my;
+        }
+
+        /*关键帧动画*/
+        @keyframes run {
+            0% {
+                left: 50%;
+                top: 50%;
+                color: #2A3842;
+                font-size: 60px;
+                font-family: Arial;
+            }
+
+            33.33% {
+                left: 50%;
+                top: 50%;
+                color: #2A3842;
+                font-size: 60px;
+                font-family: Arial;
+            }
+
+            66.66% {
+                left: 50%;
+                top: 50%;
+                font-size: 60px;
+                font-family: Arial;
+            }
+
+            100% {
+                left: 50%;
+                top: 50%;
+                font-size: 60px;
+                font-family: Arial;
+            }
+        }
+
+        @font-face {
+            font-family: my;
+            src: url("../font/title_st.otf") format("opentype");
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="demo">
+    <p> 显示自己的字体</p>
+
+</div>
+
+<div class="demo1">
+    <p style="font-family: Arial"> 显示自己的字体</p>
+    <span style="font-family: Arial"> 显示自己的字体</span>
+</div>
+
+
+<script>
+
+    function changPTag() {
+        var tags = document.getElementsByTagName('p');
+        for (var i = 0; i < tags.length; i++) {
+            tags[i].style.fontFamily='my'
+        }
+    }
+
+    changPTag();
+</script>
+
+
+</body>
+</html>

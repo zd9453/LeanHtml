@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html manifest="offline.manifest">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background: url("test.png");
+            display: inline-block;
+        }
+
+        #show {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
+        #detail_article {
+            height: 100%;
+            width: 90%;
+            display: block;
+            background-color: #2A3842;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #2A3842;
+            margin: 10px auto 10px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        #detail_introtitle {
+            font-size: 16px;
+            text-align: left;
+            width: 90%;
+            margin: auto;
+            padding-top: 22px;
+        }
+
+        #detail_title {
+            font-size: 20px;
+            text-align: left;
+            width: 90%;
+            margin: auto;
+        }
+
+        #detail_vicetitle {
+            font-size: 17px;
+            text-align: left;
+            width: 90%;
+            margin: 10px auto auto;
+        }
+
+        #detail_content {
+            margin: auto;
+            font-size: 16px;
+            line-height: 1.5;
+            width: 90%;
+            word-wrap: break-word;
+        }
+
+        #detail_author {
+            margin: auto;
+            font-size: 16px;
+            text-align: right;
+            line-height: 1.5;
+            width: 90%;
+        }
+
+        /*图片样式*/
+        #detail_content img {
+            margin: auto;
+            width: 100%;
+            border-radius: 5px 5px 5px 5px;
+            height: auto;
+            display: table-cell;
+        }
+
+        /*视频样式* embed标签/
+        #detail_content embed {
+            margin: auto;
+            width: 100%;
+            allowfullscreen: true;
+            display: table-cell;
+        }
+        /*视频样式 video标签*/
+        #detail_content video {
+            margin: auto;
+            width: 100%;
+            allowfullscreen: true;
+            display: table-cell;
+        }
+
+        @font-face {
+            font-family: my;
+            src: url("../font/title_st.otf") format("opentype");
+        }
+
+    </style>
+</head>
+<body onload="window.android.loadArticleOnAndroid()">
+<div id="show" text-align="right"></div>
+<script type="text/javascript">
+
+    var data = {
+        // editor: '大神',
+        title: '中华人民共和国万岁',
+        author: '中央',
+        viceTitle: '非标体',
+        introTitle: '小标题',
+        content: '1.专区：<br>' +
+            '新增：（1）项目公告、高企认定、会展信息模块。<br>' +
+            '改动：（1）取消交流群组、园区入驻模块。<br>' +
+            '（2）将 专区 - 通知公告 顶端分类导航全部取消（包括科技部、火炬中心、公告、会展信息）<br>' +
+            '（3）专区-栏目由12减为9分别为合作机会，智库报告，项目公告，高企认定，通知公<br>' +
+            '                告，会展信息，政策解读，投票活动，扫码阅读。\n' +
+            '2.新闻：<br>' +
+            '   改动：（1）新闻中顶端分类导航的“企业孵化”改为 “ 创业 ” 。<br>' +
+            '              （2）将 新闻 顶端分类导航中 合作机会 取消，添加至专区中。<br>' +
+            '                新闻二级导航有4个分别为：关注，园区，创业，产业。<br>' +
+            '              （3）新闻-园区中园区热点，园区产业，我的园区栏目全部取消。<br>' +
+            '3.以上所有需求详见原型（链接：https://run.mockplus.cn/DhdsfOUkjQiAnPrh/index.html ）。<br>' +
+            '4.合作机会、通知公告、会展信息列表页右上角搜索和扫码按钮去掉；<br>'
+    };
+
+    loadData(data, 1, 3, 2);
+
+    function loadData(data, flag, fontsize, index) {
+        var str_editor = data.editor ? data.editor : "";
+        var str_title = data.title ? data.title : "";
+        var str_author = data.author ? "作者：" + data.author : "";
+        var str_vicetitle = data.viceTitle ? data.viceTitle : "";
+        var str_introtitle = data.introTitle ? data.introTitle : "";
+        var nonbsp = /&nbsp;/g;
+        var nokongge = /\u3000/g;
+
+        document.write('<div id="detail_article">' +
+            '<div id="detail_editor">' + str_editor + '</div><p></p>' +
+            '<div id="detail_introtitle">' + str_introtitle + '</div><p></p>' +
+            '<div id="detail_title">' + str_title + '</div><p></p>' +
+            '<div id="detail_vicetitle">' + str_vicetitle + '</div><p></p>' +
+            '<div id="detail_author">' + str_author + '</div><p></p>' +
+            '<div id="detail_content">' + data.content.replace(nonbsp, "").replace(nokongge, "") + '</div>');
+
+        $("#detail_article").css({
+            'min-height': '100px'
+        });
+
+        $("#detail_content").css({
+            'font-family': 'my'
+        });
+
+        $("#detail_content img").each(function () {
+            var src = $(this).attr("src");
+            if (src.indexOf(":") !== -1) {
+                $(this).attr("src", src);
+            } else {
+                $(this).attr("src", src);
+            }
+        });
+        changeTheme(flag);
+        changeAlineWay(index)
+        changeFontSize(fontsize);
+        getImages();
+    }
+
+    function getImages() {
+        var objs = document.getElementsByTagName("img");
+        var myArray = new Array(objs.length);
+
+        for (var i = 0; i < objs.length; i++) {
+            myArray[i] = objs[i].src;
+        }
+
+        for (var i = 0; i < objs.length; i++) {
+            objs[i].onclick = function () {
+                window.android.openImage(this.src, myArray);
+            }
+        }
+    }
+
+    /*修改首行缩进 1首行缩进 2首行对齐*/
+    function changeAlineWay(index) {
+        if (index == 1) {
+            $("#detail_content").css({
+                'text-indent': '2em',
+                '-webkit-transition-duration': '0.1s'
+            });
+        } else if (index == 2) {
+            $("#detail_content").css({
+                'text-indent': '0px',
+                '-webkit-transition-duration': '0.1s'
+            });
+        }
+    }
+
+    function changeTheme(flag) {
+        if (flag == 1) {  //白天模式
+            $("#detail_article").css({
+                'color': '#171F25',
+                'background-color': '#FEFFFF',
+                'font-family': 'SimSun',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("font").css({
+                'font-family': 'SimSun',
+                'color': '#171F25',
+                '-webkit-transition-duration': '0.1s'
+            });
+        } else if (flag == 5) {  //夜间模式
+            $("#detail_article").css({
+                'color': '#FFFFFF',
+                'background-color': '#363637',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("font").css({
+                'color': '#FFFFFF',
+                '-webkit-transition-duration': '0.1s'
+            });
+        }
+    }
+
+    function changeFontSize(fontSize) {
+        if (fontSize === 1) {  //小
+            $("#detail_content").css({
+                'font-size': '16px',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_introtitle").css({
+                'font-size': '14px',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_title").css({
+                'font-size': '16px',
+                'font-weight': 'bolder',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_vicetitle").css({
+                'font-size': '15px',
+                'font-weight': 'bolder',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+        } else if (fontSize === 2) {  //中
+            $("#detail_content").css({
+                'font-size': '20px',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_introtitle").css({
+                'font-size': '15px',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_title").css({
+                'font-size': '18px',
+                'font-weight': 'bolder',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_vicetitle").css({
+                'font-size': '16px',
+                'font-weight': 'bolder',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+        } else if (fontSize === 3) {  //大
+            $("#detail_content").css({
+                'font-size': '24px',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_introtitle").css({
+                'font-size': '20px',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_title").css({
+                'font-size': '24px',
+                'font-weight': 'bolder',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_vicetitle").css({
+                'font-size': '22px',
+                'font-weight': 'bolder',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+        } else if (fontSize === 4) {  //特大
+            $("#detail_content").css({
+                'font-size': '28px',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_introtitle").css({
+                'font-size': '25px',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_title").css({
+                'font-size': '30px',
+                'font-weight': 'bolder',
+                '-webkit-transition-duration': '0.1s'
+            });
+            $("#detail_vicetitle").css({
+                'font-size': '27px',
+                'font-weight': 'bolder',
+                'color': '#656565',
+                '-webkit-transition-duration': '0.1s'
+            });
+        }
+    }
+</script>
+</body>
+</html>

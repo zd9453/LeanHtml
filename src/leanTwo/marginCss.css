@@ -1,0 +1,82 @@
+
+.parent {
+    width: 200px;
+    height: 200px;
+    background-color: green;
+    margin-top: 200px;
+    margin-left: 500px;
+    /*overflow: hidden;*/
+    /*position: absolute;*/
+    /*display: inline-block;*/
+}
+
+.child {
+    float: left;
+    width: 48px;
+    height: 48px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: gray;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 48px;
+}
+
+.span1 {
+    background-color: green;
+    margin-right: 100px;
+}
+
+.span2 {
+    background-color: green;
+    margin-left: 50px;
+}
+
+span::before {
+    content: '标签只爱你';
+}
+
+span::after {
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+}
+
+.nav {
+    list-style: none;
+    display: inline-block;
+}
+
+.nav::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.nav .item {
+    float: left;
+    /*background-color: green;*/
+    margin: 10px;
+    text-align: center;
+    line-height: 30px;
+}
+
+li > a {
+    display: inline-block;
+    text-decoration: none;
+    color: #f40;
+    padding: 0 10px;
+    height: 30px;
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+li > a:hover {
+    color: white;
+    background-color: #ff4400;
+
+}
